@@ -114,7 +114,7 @@
                 reset();
 
                 var row = document.createElement('tr');
-                row.setAttribute("class", "maul");
+                row.setAttribute("class", "timetrack");
                 var minCol = document.createElement('td');
                 minCol.innerHTML = min;
                 var secCol = document.createElement('td');
@@ -124,7 +124,7 @@
                 row.appendChild(minCol);
                 row.appendChild(secCol);
                 row.appendChild(milCol);
-                document.getElementById("kacka").appendChild(row);
+                document.getElementById("timehist").appendChild(row);
             }
 
         </script>
@@ -148,7 +148,7 @@
             </span>
         </div>
         <div>
-            <table id="kacka">
+            <table id="timehist">
                 <tr><th>min</th><th>sec</th><th>mil<button style="float: right">reset</button></th></tr>
             </table>
         </div>
