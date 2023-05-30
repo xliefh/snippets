@@ -127,13 +127,6 @@
                 document.getElementById("kacka").appendChild(row);
             }
 
-            function clrhist() {
-                var rows = document.getElementsByTagName("tr");
-                var len = rows.length;
-                for (var i = len - 1; i > rows.length; i--) {
-                    rows[i].remove();
-                }
-            }
         </script>
     </head>
     <body>
@@ -156,7 +149,7 @@
         </div>
         <div>
             <table id="kacka">
-                <tr><th>min</th><th>sec</th><th>mil<button style="float: right" onclick="clrhist()">reset</button></th></tr>
+                <tr><th>min</th><th>sec</th><th>mil<button style="float: right">reset</button></th></tr>
             </table>
         </div>
     </body>
