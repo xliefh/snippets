@@ -4,6 +4,19 @@
         <title>GOOD FORM!</title>
         <meta charset="utf-8"/>
         <meta name="description" content="A solid web form that is validated and the user is helped via hints if the validation fails."/>
+        <script>
+            function check(f) {
+                if (!f.elements["Anrede"][0].checked && !f.elements["Anrede"][1].checked)) {
+                    fehler += "Anrede\n";
+                }
+                //TODO sinngemaess fuer alle form-Elemente checken und ggfs. fehler konkatenieren
+                if (fehler != "") {
+                    alert("** Fehler bei den folgenden Feldern:\n\n" + fehler);
+                    return false;
+                }
+                return true;
+            }
+        </script>
     </head>
     <body>
         <?php
@@ -112,7 +125,7 @@
             {
             ?>
             <h1>Ticketservice</h1>
-                <form method="post"> <!-- Attribut action="localhost:8080/good-form.php"
+                <form method="post" onsubmit="return check(this);"> <!-- Attribut action="localhost:8080/good-form.php"
                         nicht nötig, browser nutzt automatisch die Adresse, wo das Formular liegt -->
                     <input type="radio" name="Anrede" value="Hr."<?php
                     if ($Anrede == "Hr.")
