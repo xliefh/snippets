@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="de">
+    <head>
+        <title>Zeit...</title>
+        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+        <style>
+            .stopwatch {
+                font-family: 'Vintage-Schriftart', sans-serif;
+                background: url(vintage-texture.jpg);
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+                width: 300px;
+                margin: auto;
+                text-align: center;
+                margin-bottom: 10px;
+            }
+
+            .stopwatch .display {
+                background: #fff;
+                padding: 20px;
+                border-radius: 50%;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            }
+
+            .stopwatch .time {
+                font-size: 36px;
+                color: #3e2723;
+                text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            }
+
+            .control {
+                margin: 10px;
+            }
+
+            .stopwatch button {
+                font-family: 'Vintage-Font', sans-serif;
+                background: url(vintage-texture.jpg);
+                color: #3e2723;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+                cursor: pointer;
+            }
+
+            .stopwatch button:hover {
+                background: #3e2723;
+                color: #fff;
+            }
+
+            table {
+                border-collapse: collapse;
+                width: 100%;
+            }
+
+            table, th, td {
+                border: 1px solid #ddd;
+                padding: 8px;
+            }
+
+            tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+
+            th {
+                padding-top: 12px;
+                padding-bottom: 12px;
+                text-align: left;
+                background-color: #00aeff;
+                color: white;
+            }
+
+        </style>
+
+        <script>
+            let startTime;
+            let elapsedTime = 0;
+            let timerInterval;
+            let running = false;
+            function start() {
+                if (running) return;
+                running = true;
+                startTime = Date.now() - elapsedTime;
+                timerInterval = setInterval(function printTime() {
+                    elapsedTime = Date.now() - startTime;
+                    document.getElementById("millisec-elapsed").innerHTML = ((Math.floor(elapsedTime % 1000)) + '').padStart(3, '0');
+                    document.getElementById("seconds-elapsed").innerHTML = ((Math.floor(elapsedTime / 1000)) + '').padStart(2, '0');
+                    document.getElementById("minutes-elapsed").innerHTML = ((Math.floor(elapsedTime / 1000 / 60)) + '').padStart(2, '0');
+                }, 10);
+            }
+
+            function stop() {
+                clearInterval(timerInterval);
+                running = false;
+            }
+
+            function reset() {
+                clearInterval(timerInterval);
+                running = false;
+                elapsedTime = 0;
+                document.getElementById("millisec-elapsed").innerHTML = '000';
+                    document.getElementById("seconds-elapsed").innerHTML = '00';
+                    document.getElementById("minutes-elapsed").innerHTML = '00';
+            }
+
+            function hist() {
+                var mil = document.getElementById("millisec-elapsed").innerHTML;
+                var sec = document.getElementById("seconds-elapsed").innerHTML;
+                var min = document.getElementById("minutes-elapsed").innerHTML;
+                
+                reset();
+
+                var row = document.createElement('tr');
+                row.setAttribute("class", "timetrack");
+                var minCol = document.createElement('td');
+                minCol.innerHTML = min;
+                var secCol = document.createElement('td');
+                secCol.innerHTML = sec;
+                var milCol = document.createElement('td');
+                milCol.innerHTML = mil;
+                row.appendChild(minCol);
+                row.appendChild(secCol);
+                row.appendChild(milCol);
+                document.getElementById("timehist").appendChild(row);
+            }
+
+        </script>
+
+        <script>
+            <!-- checkbox for hiding / showing time measurements below one second -->
+            $(document).ready(function() {
+                $('#hide_below_1sec').change(function() {
+                    if (this.checked) {
+                        $('.timetrack').each(function() {
+                            if ($(this).find('td').eq(1).text() == '00') {
+                                $(this).hide();
+                            }
+                        });
+                    } else {
+                        $('tr').show();
+                    }
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <div>
+            <span>
+                <div class="stopwatch">
+                    <div class="display">
+                        <span class="clocktime-part" id="minutes-elapsed">00</span> :
+                        <span class="clocktime-part" id="seconds-elapsed">00</span> :
+                        <span class="clocktime-part" id="millisec-elapsed">000</span>
+                    </div>
+                    <div class="control">
+                        <span><button onclick="start()">Start</button></span>
+                        <span><button onclick="stop()">Stopp</button></span>
+                        <span><button onclick="reset()">Rücksetzen</button></span>
+                        <span><button onclick="hist()">Speichern</button></span>
+                    </div>
+                </div>
+            </span>
+        </div>
+        <form>
+            <label for="hide_below_1sec">Messungen unter einer Sekunde verstecken</label>
+            <input type="checkbox" id="hide_below_1sec" name="hide_below_1sec" value="hide_below_1sec">
+        </form>
+        <div>
+            <table id="timehist">
+                <tr><th>min</th><th>sec</th><th>mil<button style="float: right">reset</button></th></tr>
+            </table>
+        </div>
+    </body>
+</html>
