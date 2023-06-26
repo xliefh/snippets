@@ -49,6 +49,11 @@
             ?>
     <form method="post">
         Name <input type="text" name="Name" /><br />
-        E-Mail-Adresse <input type="text" name="Email"
+        E-Mail-Adresse <input type="text" name="Email" /><br />
+        &Uuml;berschrift <input type="text" name="Ueberschrift" /><br />
+        Kommentar
+        <textarea cols="70" rows="10" name="Kommentar"></textarea><br />
+        <input type="submit" name="Submit" value="Eintragen" />
     </form>
 </body>
+</html>
