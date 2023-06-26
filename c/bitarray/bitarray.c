@@ -14,7 +14,8 @@
 // param2 ini - init value (0 or anything else treated as 1)
 //
 // returns a reference to the allocated memory
-bitarray ba_create(int len, int ini)
+bitarray
+ba_create(int len, int ini)
 {
     int num_chunks = len / (sizeof(unsigned char) * 8) + 1;
     bitarray ba = malloc(sizeof(unsigned char) * num_chunks);
@@ -32,7 +33,8 @@ bitarray ba_create(int len, int ini)
 //
 // param1 ba - the bitarray to operate on
 // param2 idx - the index of the bit to be set
-void ba_set(bitarray ba, int idx) {
+void
+ba_set(bitarray ba, int idx) {
     int num_chunks = idx / (sizeof(unsigned char) * 8);
     unsigned char bit_idx = (unsigned char) idx % (sizeof(unsigned char) * 8);
 
@@ -46,7 +48,8 @@ void ba_set(bitarray ba, int idx) {
 //
 // param1 ba - the bitarray to operate on
 // param2 idx - the index of the bit to be cleared
-void ba_clear(bitarray ba, int idx)
+void
+ba_clear(bitarray ba, int idx)
 {
     int num_chunks = idx / (sizeof(unsigned char) * 8);
     unsigned char bit_idx = (unsigned char) idx % (sizeof(unsigned char) * 8);
@@ -64,7 +67,8 @@ void ba_clear(bitarray ba, int idx)
 // param2 idx - the index of the bit to be tested
 //
 // returns 0 if the bit is cleared, 1 if it is set
-int ba_test(bitarray ba, int idx)
+int
+ba_test(bitarray ba, int idx)
 {
     int num_chunks = idx / (sizeof(unsigned char) * 8);
     unsigned char bit_idx = (unsigned char) idx % (sizeof(unsigned char) * 8);
@@ -76,7 +80,8 @@ int ba_test(bitarray ba, int idx)
 }
 
 // deallocate bitarray
-void ba_destroy(bitarray ba)
+void
+ba_destroy(bitarray ba)
 {
     free(ba);
 }
